@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import './Form.css'; // Подключаем стили
 
 const Form = () => {
-    // Используем хуки для управления состоянием полей формы
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
         address: '',
     });
 
-    // Функция для обработки изменений в полях формы
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevData) => ({
@@ -18,11 +16,30 @@ const Form = () => {
         }));
     };
 
-    // Функция для обработки отправки формы
-    const handleSubmit = (event) => {
+    // Обновленный обработчик отправки формы
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Здесь можно добавить логику отправки данных на сервер
-        console.log('Данные формы:', formData);
+        try {
+            const response = await fetch('http://localhost:3001/submit-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                const result =  await response.json();
+                console.log('Данные успешно отправлены:', result);
+                alert('!Данные успешно отправлены!!!');
+            } else {
+                console.error('Ошибка при отправке данных:', response.statusText);
+                alert('Ошибка при отправке данных!');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+            alert('Ошибка при соединении с сервером!');
+        }
     };
 
     return (
@@ -64,6 +81,7 @@ const Form = () => {
                 </div>
                 <button type="submit">Отправить</button>
             </form>
+
         </div>
     );
 };
