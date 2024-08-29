@@ -1,15 +1,21 @@
+/* Устанавливаем цвет текста по умолчанию внутри .form-container */
 .form-container {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #000000;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #000000;
+    background-color: #f9f9f9;
+    color: black; /* Устанавливаем цвет текста по умолчанию */
+}
+
+/* Стили для всех элементов в .form-container */
+.form-container * {
+    color: black; /* Устанавливаем цвет текста для всех дочерних элементов */
 }
 
 .form-group {
     margin-bottom: 15px;
-    color: black;
 }
 
 label {
