@@ -19,34 +19,19 @@ const Form = () => {
     // Обработчик отправки формы
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        // Получаем параметры из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const chatId = urlParams.get('chatId');
-        const messageId = urlParams.get('messageId');
-
-        if (!chatId || !messageId) {
-            alert('Chat ID или Message ID отсутствуют!');
-            return;
-        }
-
         try {
-            const response = await fetch('  https://fa61-95-24-119-251.ngrok-free.app/submit-form', {
+            const response = await fetch('https://fa61-95-24-119-251.ngrok-free.app/submit-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    chatId: chatId,
-                    messageId: messageId,
-                    formData: formData
-                }),
+                body: JSON.stringify(formData),
             });
 
             if (response.ok) {
                 const result = await response.json();
                 console.log('Данные успешно отправлены:', result);
-                alert('Данные успешно отправлены!');
+                alert('!Данные успешно отправлены!!!');
             } else {
                 console.error('Ошибка при отправке данных:', response.statusText);
                 alert('Ошибка при отправке данных!');
@@ -56,6 +41,7 @@ const Form = () => {
             alert('Ошибка при соединении с сервером!');
         }
     };
+
 
     return (
         <div className="form-container">
