@@ -16,11 +16,11 @@ const Form = () => {
         }));
     };
 
-    // Обновленный обработчик отправки формы
+    // Обработчик отправки формы
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://95.24.119.251:3001/submit-form', {
+            const response = await fetch('https://4ea5-95-24-119-251.ngrok-free.app/submit-form', { // Замените на ваш URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,6 @@ const Form = () => {
                 </div>
                 <button type="submit">Отправить</button>
             </form>
-
         </div>
     );
 };
