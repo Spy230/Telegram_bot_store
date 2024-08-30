@@ -31,7 +31,7 @@ const Form = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formData, chatId }),
+                body: JSON.stringify({ ...formData, chatId, messageId }),
             });
 
             if (response.ok) {
@@ -47,7 +47,6 @@ const Form = () => {
             alert('Ошибка при соединении с сервером!');
         }
     };
-
 
     return (
         <div className="form-container">
