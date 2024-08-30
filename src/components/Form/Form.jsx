@@ -20,7 +20,7 @@ const Form = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/submit-form', {
+            const response = await fetch('http://95.24.119.251:3001/submit-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
