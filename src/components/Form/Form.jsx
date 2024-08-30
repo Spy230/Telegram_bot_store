@@ -29,16 +29,15 @@ const Form = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        // Получаем параметры из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const chatId = urlParams.get('chatId');
+        const messageId = urlParams.get('messageId');
+
         if (!chatId || !messageId) {
-            alert('Ошибка: идентификаторы чата или сообщения отсутствуют.');
+            alert('Chat ID или Message ID отсутствуют!');
             return;
         }
-
-        const dataToSend = {
-            ...formData,
-            chatId,
-            messageId
-        };
 
         try {
             const response = await fetch('https://fa61-95-24-119-251.ngrok-free.app/submit-form', {
@@ -46,7 +45,11 @@ const Form = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(dataToSend),
+                body: JSON.stringify({
+                    chatId: chatId,
+                    messageId: messageId,
+                    formData: formData
+                }),
             });
 
             if (response.ok) {
@@ -62,7 +65,6 @@ const Form = () => {
             alert('Ошибка при соединении с сервером!');
         }
     };
-
     return (
         <div className="form-container">
             <h2>Заполните анкету</h2>
