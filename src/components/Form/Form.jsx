@@ -31,13 +31,13 @@ const Form = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formData, chatId, messageId }),
+                body: JSON.stringify({ ...formData, chatId }),
             });
 
             if (response.ok) {
                 const result = await response.json();
                 console.log('Данные успешно отправлены:', result);
-                alert('!Данные успешно отправлены!!!');
+                alert('Данные успешно отправлены!');
             } else {
                 console.error('Ошибка при отправке данных:', response.statusText);
                 alert('Ошибка при отправке данных!');
@@ -47,6 +47,7 @@ const Form = () => {
             alert('Ошибка при соединении с сервером!');
         }
     };
+
 
     return (
         <div className="form-container">
