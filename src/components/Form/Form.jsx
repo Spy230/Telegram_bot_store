@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import './Form.css';
+import React, { useState } from 'react';
+import './Form.css'; // Подключаем стили
 
 const Form = () => {
     const [formData, setFormData] = useState({
@@ -7,16 +7,6 @@ const Form = () => {
         phone: '',
         address: '',
     });
-
-    const [chatId, setChatId] = useState(null);
-    const [messageId, setMessageId] = useState(null);
-
-    useEffect(() => {
-        // Получение chatId и messageId из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        setChatId(urlParams.get('chatId'));
-        setMessageId(urlParams.get('messageId'));
-    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -26,21 +16,22 @@ const Form = () => {
         }));
     };
 
+    // Обработчик отправки формы
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        
         // Получаем параметры из URL
         const urlParams = new URLSearchParams(window.location.search);
         const chatId = urlParams.get('chatId');
         const messageId = urlParams.get('messageId');
-
+        
         if (!chatId || !messageId) {
             alert('Chat ID или Message ID отсутствуют!');
             return;
         }
 
         try {
-            const response = await fetch('https://fa61-95-24-119-251.ngrok-free.app/submit-form', {
+            const response = await fetch('http://localhost:3000/submit-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,6 +56,7 @@ const Form = () => {
             alert('Ошибка при соединении с сервером!');
         }
     };
+
     return (
         <div className="form-container">
             <h2>Заполните анкету</h2>
