@@ -20,7 +20,7 @@ const Form = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('https://4ea5-95-24-119-251.ngrok-free.app/submit-form', { // Замените на ваш URL
+            const response = await fetch(' https://fa61-95-24-119-251.ngrok-free.app/submit-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const Form = () => {
             });
 
             if (response.ok) {
-                const result =  await response.json();
+                const result = await response.json();
                 console.log('Данные успешно отправлены:', result);
                 alert('!Данные успешно отправлены!!!');
             } else {
@@ -41,6 +41,7 @@ const Form = () => {
             alert('Ошибка при соединении с сервером!');
         }
     };
+
 
     return (
         <div className="form-container">
