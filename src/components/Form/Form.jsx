@@ -19,19 +19,19 @@ const Form = () => {
     // Обработчик отправки формы
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         // Получаем параметры из URL
         const urlParams = new URLSearchParams(window.location.search);
         const chatId = urlParams.get('chatId');
         const messageId = urlParams.get('messageId');
-        
+
         if (!chatId || !messageId) {
             alert('Chat ID или Message ID отсутствуют!');
             return;
         }
 
         try {
-            const response = await fetch('http://localhost:3000/submit-form', {
+            const response = await fetch('  https://fa61-95-24-119-251.ngrok-free.app/submit-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
