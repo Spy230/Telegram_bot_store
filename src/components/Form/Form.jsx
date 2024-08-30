@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './Form.css'; // Подключаем стили
+import React, { useState, useEffect } from 'react';
+import './Form.css';
 
 const Form = () => {
     const [formData, setFormData] = useState({
@@ -7,6 +7,16 @@ const Form = () => {
         phone: '',
         address: '',
     });
+
+    const [chatId, setChatId] = useState(null);
+    const [messageId, setMessageId] = useState(null);
+
+    useEffect(() => {
+        // Получение chatId и messageId из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        setChatId(urlParams.get('chatId'));
+        setMessageId(urlParams.get('messageId'));
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -16,22 +26,33 @@ const Form = () => {
         }));
     };
 
-    // Обработчик отправки формы
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!chatId || !messageId) {
+            alert('Ошибка: идентификаторы чата или сообщения отсутствуют.');
+            return;
+        }
+
+        const dataToSend = {
+            ...formData,
+            chatId,
+            messageId
+        };
+
         try {
-            const response = await fetch(' https://fa61-95-24-119-251.ngrok-free.app/submit-form', {
+            const response = await fetch('https://fa61-95-24-119-251.ngrok-free.app/submit-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(dataToSend),
             });
 
             if (response.ok) {
                 const result = await response.json();
                 console.log('Данные успешно отправлены:', result);
-                alert('!Данные успешно отправлены!!!');
+                alert('Данные успешно отправлены!');
             } else {
                 console.error('Ошибка при отправке данных:', response.statusText);
                 alert('Ошибка при отправке данных!');
@@ -41,7 +62,6 @@ const Form = () => {
             alert('Ошибка при соединении с сервером!');
         }
     };
-
 
     return (
         <div className="form-container">
