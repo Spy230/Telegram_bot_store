@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Form.css'; // Подключаем стили
 
 const Form = () => {
@@ -7,6 +8,11 @@ const Form = () => {
         phone: '',
         address: '',
     });
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const chatId = searchParams.get('chatId');
+    const messageId = searchParams.get('messageId');
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -25,7 +31,7 @@ const Form = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ ...formData, chatId, messageId }),
             });
 
             if (response.ok) {
@@ -41,7 +47,6 @@ const Form = () => {
             alert('Ошибка при соединении с сервером!');
         }
     };
-
 
     return (
         <div className="form-container">
